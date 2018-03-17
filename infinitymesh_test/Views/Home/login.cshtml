@@ -1,0 +1,22 @@
+﻿@model infinitymesh_test.DAL.ViewModels.LoginErrorVM
+<script src="~/js/Login.js"></script>
+<body style="background-color:#d3d3d3">
+    <div class="parent_container">
+        <div class="title">Login/Blog Manager</div>
+        <div class="input_form">
+
+            <form action="home/LoginCheck" id="loginform" method="post">
+                <input id="inputUsername" type="text" placeholder="Input username..." name="username"/>
+                <input id="inputPassword" type="password" placeholder="Input password..." name="password"/>
+                <div>
+                    <div class="sign_in_button" onclick="Validate();">Sign in</div>
+                </div>
+            </form>
+            @if ( Model != null)
+            {
+                <div style="text-align:center; color: red">@Model.Message</div>
+            }
+        </div>
+    </div>
+
+</body>

@@ -1,0 +1,74 @@
+﻿@using System;
+@using infinitymesh_test.DAL.Models;
+@model infinitymesh_test.DAL.ViewModels.UserHomeVM
+
+<script src="~/js/HomePage.js"></script>
+<body>
+    <div class="header">
+        <div class="site_title_container">Blog Manager V1</div>
+        <div class="buttons_container">
+            <div class="navigation_button">Home</div>
+            <div class="navigation_button" onclick="location.href='@Url.Action("editProfile", "Home", new {id=@Model.User.Id})';">Edit Info</div>
+            <div class="navigation_button">Log out</div>
+        </div>
+    </div>
+    <div class="username">Welcome, @Model.User.Name</div>
+    <div class="title2">The User List</div>
+    <div class="Search_input_container">
+        <input id="search_input" type="text" placeholder="Search users.."/>
+    </div>
+    <div class="users_list">
+            <table align="center">
+            <tr class="tablerow table_header">
+                <td class="tablecell">
+                    Name
+                </td>
+                <td class="tablecell">
+                    Age
+                </td>
+                <td class="tablecell">
+                    Email
+                </td>
+                <td class="tablecell">
+                    Blog#
+                </td>
+                <td class="tablecell">
+                    View Profile
+                </td>
+            </tr>
+        @foreach ( Users user in Model.Users)
+            {
+                int blogcounter = 0;
+                <tr class="tablerow">
+                    <td class="tablecell">
+                        @user.Name
+                    </td>
+                    <td class="tablecell">
+                        @user.Age
+                    </td>
+                    <td class="tablecell">
+                        @user.Email
+                    </td>
+                    <td class="tablecell">
+                       @foreach ( Blogs blog in Model.Blogs )
+                           {
+                             if ( blog.UserID == user.Id )
+                                 {
+                                 blogcounter++;
+                                 }   
+                           }
+                        @blogcounter
+                    </td>
+                    <td class="tablecell">
+                       <a href='@Url.Action("editProfile", "Home", new {id=@user.Id})';">View</a>
+                    </td>
+                </tr>
+            }
+                </table>
+        <div class="page_buttons">
+            <div class="page_button">1</div><!--
+           --><div class="page_button">2</div><!--
+            --><div class="page_button">3</div>
+        </div>
+    </div>
+</body>

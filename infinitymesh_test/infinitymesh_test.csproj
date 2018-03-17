@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\HomePage.js" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.intellisense.js" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.min.map" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.slim.js" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.slim.min.js" />
+    <None Include="wwwroot\lib\jquery\jquery-3.3.1.slim.min.map" />
+    <None Include="wwwroot\lib\jquery-validation\jquery.validate-vsdoc.js" />
+    <None Include="wwwroot\lib\jquery-validation\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\js\Login.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

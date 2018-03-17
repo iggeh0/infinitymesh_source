@@ -1,0 +1,71 @@
+﻿@using System;
+@using infinitymesh_test.DAL.Models;
+@model infinitymesh_test.DAL.ViewModels.UserProfileVM
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker_from").datepicker();
+        $("#datepicker_to").datepicker();
+    });
+</script>
+<body>
+    <div class="header">
+        <div class="site_title_container">Blog Manager V1</div>
+        <div class="buttons_container">
+            <div class="navigation_button">Home</div>
+            <div class="navigation_button" onclick="editProfile(@Model.User.Id);">Edit Info</div>
+            <div class="navigation_button">Log out</div>
+        </div>
+    </div>
+    <div class="name_container">@Model.User.Username</div>
+    <div class="user_details">
+        Name: <input type="text" id="nameInput" placeholder="Insert name..." value="@Model.User.Name"/>
+        <div class="user_age">Age: @Model.User.Age</div>
+    </div>
+    <div style="text-align: center">
+        <div class="above_blog_list">
+            <div class="addblog">Create a new Blog</div>
+            <div class="dates">
+                From:  <input type="text" id="datepicker_from" />
+                To:  <input type="text" id="datepicker_to" />
+            </div>
+            <input type="text" id="blogfilter" placeholder="Search..." />
+        </div>
+        <div class="blog_list">
+            <table align="center">
+                <tr class="tablerow table_header">
+                    <td class="tablecell">
+                        Title
+                    </td>
+                    <td class="tablecell">
+                        Summary
+                    </td>
+                    <td class="tablecell">
+                        Publishing Date Time
+                    </td>
+                </tr>
+                @foreach (Blogs blog in Model.Blogs)
+                    {
+                    <tr class="tablerow" onclick="editBlog(1)">
+                        <td class="tablecell">
+                            @blog.Title
+                        </td>
+                        <td class="tablecell">
+                            @blog.Summary
+                        </td>
+                        <td class="tablecell">
+                            @blog.PublishedDateTime
+                        </td>
+                    </tr>
+                    }
+            </table>
+            <div class="page_buttons">
+                <div class="page_button">1</div><!--
+                --><div class="page_button">2</div><!--
+                --><div class="page_button">3</div>
+            </div>
+        </div>
+    </div>
+</body>

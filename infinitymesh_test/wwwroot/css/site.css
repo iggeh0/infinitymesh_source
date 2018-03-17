@@ -1,0 +1,177 @@
+﻿body {
+    background-color: #d3d3d3;
+    font-family: helvetica;
+}
+
+/* LOGIN START */
+.parent_container {
+    padding: 150px;
+}
+
+.title {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
+.input_form {
+    text-align: center;
+}
+
+    .input_form input {
+        padding: 20px;
+        width: 51%;
+        margin-bottom: 20px;
+        background-color: #d3d3d3;
+        border: none;
+        border-bottom: 1px solid #000;
+    }
+
+.sign_in_button {
+    display: inline-block;
+    padding: 20px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+/* HOME PAGE START */
+
+.header {
+    background-color: #000;
+    color: #fff;
+}
+
+.site_title_container {
+    display: inline-block;
+    width: 45%;
+    margin-left: 20px;
+    font-size: 25px;
+}
+
+.buttons_container {
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+}
+
+.navigation_button {
+    display: inline-block;
+    height: 100%;
+    padding: 15px;
+    cursor: pointer;
+}
+
+    .navigation_button:hover {
+        background-color: #fff;
+        color: #000;
+    }
+
+.username {
+    padding: 50px;
+    font-size: 18px;
+}
+
+.title2 {
+    text-align: center;
+    font-size: 20px;
+}
+
+.Search_input_container {
+    text-align: center;
+}
+
+    .Search_input_container input {
+        height: 30px;
+        width: 180px;
+        padding-left: 15px;
+        border-radius: 10px;
+    }
+
+.users_list {
+    text-align: center;
+}
+
+table {
+    margin-top: 20px;
+    width: 80%;
+    background-color: #fff;
+    border-collapse: collapse;
+}
+
+tr {
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+td {
+    width: 20%;
+    padding: 10px;
+}
+
+.table_header {
+    background-color: #A9A9A9;
+    color: #fff;
+}
+
+.page_buttons {
+    display: inline-block;
+    text-align: right;
+    width: 80%;
+}
+
+.page_button {
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #000;
+    text-align: center;
+    background-color: #fff;
+}
+
+    .page_button:first-child {
+        border-right: none;
+    }
+
+    .page_button:last-child {
+        border-left: none;
+    }
+
+
+/* USER PROFILE PAGE START */
+
+.name_container {
+    padding: 50px;
+    font-size: 20px;
+}
+
+.user_details {
+    margin-left: 50px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+    .user_details input {
+        font-size: 18px;
+        border: none;
+        background-color: #d3d3d3;
+        border-bottom: 1px solid black;
+    }
+
+.user_age {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.addblog {
+    display: inline-block;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.dates {
+    display: inline-block;
+    margin-left: 20px;
+}
