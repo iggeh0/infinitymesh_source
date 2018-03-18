@@ -8,5 +8,10 @@ namespace infinitymesh_test.DAL.ViewModels
     public class LoginErrorVM
     {
        public string Message = "Username or password not found";
+        public bool ErrorFound;
+      public LoginErrorVM()
+        {
+            ErrorFound = false;
+        }
     }
 }

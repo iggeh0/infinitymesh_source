@@ -10,28 +10,36 @@
         $("#datepicker_to").datepicker();
     });
 </script>
+<script src="~/js/EditProfile.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+<!-- Include Editor style. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_style.min.css" rel="stylesheet" type="text/css" />
 <body>
     <div class="header">
         <div class="site_title_container">Blog Manager V1</div>
         <div class="buttons_container">
             <div class="navigation_button">Home</div>
-            <div class="navigation_button" onclick="editProfile(@Model.User.Id);">Edit Info</div>
+            <div class="navigation_button" onclick="location.href = 'editProfile(@Model.User.Id)';">Edit Info</div>
             <div class="navigation_button">Log out</div>
         </div>
     </div>
     <div class="name_container">@Model.User.Username</div>
     <div class="user_details">
-        Name: <input type="text" id="nameInput" placeholder="Insert name..." value="@Model.User.Name"/>
+        Name: <input type="text" id="nameInput" placeholder="Insert name..." value="@Model.User.Name" />
         <div class="user_age">Age: @Model.User.Age</div>
     </div>
     <div style="text-align: center">
         <div class="above_blog_list">
-            <div class="addblog">Create a new Blog</div>
+            <div class="addblog" onclick="CreateBlog();">Create a new Blog</div>
             <div class="dates">
                 From:  <input type="text" id="datepicker_from" />
                 To:  <input type="text" id="datepicker_to" />
             </div>
             <input type="text" id="blogfilter" placeholder="Search..." />
+            <button onclick="FiilterBlogs()">Filter</button>
         </div>
         <div class="blog_list">
             <table align="center">
@@ -46,8 +54,14 @@
                         Publishing Date Time
                     </td>
                 </tr>
+                @if (Model.Blogs.Count == 0)
+                {
+                    <tr class="tablerow" style="text-align:center">
+                        <td> No blogs created yet.</td>
+                    </tr>
+                }
                 @foreach (Blogs blog in Model.Blogs)
-                    {
+                {
                     <tr class="tablerow" onclick="editBlog(1)">
                         <td class="tablecell">
                             @blog.Title
@@ -59,12 +73,39 @@
                             @blog.PublishedDateTime
                         </td>
                     </tr>
-                    }
+                }
             </table>
             <div class="page_buttons">
-                <div class="page_button">1</div><!--
-                --><div class="page_button">2</div><!--
-                --><div class="page_button">3</div>
+                <div class="page_button">1</div>
+                <!--
+                -->
+                <div class="page_button">2</div>
+                <!--
+                -->
+                <div class="page_button">3</div>
+            </div>
+        </div>
+        <div class="editBlog">
+            <div class="blog_title_container">
+                <textarea id="title_input" maxlength="64" placeholder="Title"></textarea>
+            </div>
+            <div class="blog_summary_container">
+                <textarea id="summary_input" maxlength="350" placeholder="Summary"></textarea>
+            </div>
+            <div class="blog_content_container">
+                <textarea class="fr-view"></textarea>
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/js/froala_editor.pkgd.min.js"></script>
+
+                <script>$(function () { $('.fr-view').froalaEditor() });</script>
+            </div>
+            <div class="blog_datetime_container">
+                <input id="datetime_input" type="datetime-local" min="@DateTime.Now" />
+            </div>
+            <div class="editblog_buttons">
+                <div class="cancel_button" onclick="CancelBlog();">Cancel</div>
+                <div class="save_button" onclick="SaveBlog();">Save</div>
             </div>
         </div>
     </div>

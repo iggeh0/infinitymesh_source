@@ -169,9 +169,47 @@ td {
     background-color: #000;
     color: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .dates {
     display: inline-block;
     margin-left: 20px;
 }
+
+.editBlog {
+    position: absolute;
+    left: 25%;
+    top: 50%;
+    padding: 20px;
+    border: 1px solid black;
+    background-color: #fff;
+    z-index: 10;
+}
+
+#title_input, #summary_input, #datetime_input {
+    width: 100%;
+    height: auto;
+}
+
+.editblog_buttons {
+    text-align: right;
+}
+
+    .editblog_buttons .save_button, .editblog_buttons .cancel_button {
+        display: inline-block;
+        width: 150px;
+        border: 1px solid black;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .editblog_buttons .save_button {
+        background-color: #add8e6;
+        color: #fff
+    }
+
+    .editblog_buttons .cancel_button {
+        background-color: #8b0000;
+        color: #fff
+    }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using infinitymesh_test.DAL.Models;
 using infinitymesh_test.DAL.ViewModels;
 
@@ -21,7 +19,8 @@ namespace infinitymesh_test.Controllers
         }
         public ActionResult Index()
         {
-            return View("login");
+            LoginErrorVM Model = new LoginErrorVM();
+            return View("login", Model);
         }
 
         public ActionResult EditProfile(int id)
@@ -76,7 +75,8 @@ namespace infinitymesh_test.Controllers
 
             }
             LoginErrorVM Error = new LoginErrorVM();
-            return View("Login", Error);
+            Error.ErrorFound = true;
+            return View("login", Error);
         }
     }
 }
