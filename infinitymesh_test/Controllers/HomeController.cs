@@ -35,14 +35,13 @@ namespace infinitymesh_test.Controllers
             return View("EditProfile", Model);
         }
 
-        public async Task<ActionResult> HomePage(string sortOrder,
+        public async Task<ActionResult> HomePage(
             string currentFilter,
             string searchString,
             int? page)
         {
             await _context.Users.ToListAsync();
             await _context.Blogs.ToListAsync();
-            ViewData["CurrentSort"] = sortOrder;
 
             if (searchString != null)
             {
@@ -55,11 +54,16 @@ namespace infinitymesh_test.Controllers
 
             ViewData["CurrentFilter"] = searchString;
             int? currentpage = page;
-            int pageSize = 3;
+            int pageSize = 5;
 
 
             var Users = from w in _context.Users
                         select w;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Users = Users.Where(s => s.Name.Contains(searchString)
+                                       || s.Email.Contains(searchString));
+            }
             foreach (Blogs b in _context.Blogs)
             {
                 Users.Where(x => x.Id == b.UserID).Single().BlogNumber++;
@@ -98,7 +102,7 @@ namespace infinitymesh_test.Controllers
             _context.SaveChanges();
         }
 
-        public async Task<ActionResult> LoginCheck(string username, string password, int? currentpage)
+        public async Task<ActionResult> LoginCheck(string username, string password)
         {
             if (username != null && username.Length > 3 && password != null && password.Length > 3)
             {
@@ -110,19 +114,11 @@ namespace infinitymesh_test.Controllers
                     {
                         var Users = from w in _context.Users
                                        select w;
-                        //UserHomeVM Model = new UserHomeVM();
-                        //foreach (Users Q in _context.Users)
-                        //{
-                        //   Model.Users.Add(Q);
-                        //}
                         foreach (Blogs b in _context.Blogs)
                         {
                             Users.Where(x => x.Id == b.UserID).Single().BlogNumber++;
                         }
-                        ViewData["CurrentSort"] = "name_desc";
-                        ViewData["NameSortParm"] = "name_desc";
-                        ViewData["DateSortParm"] = "date_desc";
-                        int? page = currentpage;
+                        int? page = 1;
                         int pageSize = 5;
                         
 

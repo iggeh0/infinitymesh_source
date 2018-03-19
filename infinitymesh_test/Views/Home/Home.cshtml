@@ -2,6 +2,7 @@
 @using System.Web.Mvc;
 @using infinitymesh_test.DAL.Models;
 @model PaginatedList<infinitymesh_test.DAL.Models.Users>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 <script src="~/js/HomePage.js"></script>
@@ -17,7 +18,15 @@
     @*<div class="username">Welcome, @Model.User.Name</div>*@
     <div class="title2">The User List</div>
     <div class="Search_input_container">
-        <input id="search_input" type="text" placeholder="Search users.." />
+        <form asp-action="HomePage" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Search users: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                    <input type="submit" value="Search" class="btn btn-default" placeholder="Search users..." /> |
+                    <a asp-action="HomePage">Back to Full List</a>
+                </p>
+            </div>
+        </form>
     </div>
     <div class="users_list">
         <table align="center">
@@ -64,30 +73,26 @@
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
-
-        <a asp-action="/home/HomePage"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
+        @for (int i = 0; i < Model.PageIndex; i++)
+        {
+        <a asp-action="HomePage"
+           asp-route-page="@(i+1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            @i+1
+        </a>
+        }
+        @*<a asp-action="HomePage"
            asp-route-page="@(Model.PageIndex - 1)"
            asp-route-currentFilter="@ViewData["CurrentFilter"]"
            class="btn btn-default @prevDisabled">
             Previous
         </a>
-        <a asp-action="/home/HomePage"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
+        <a asp-action="HomePage"
            asp-route-page="@(Model.PageIndex + 1)"
            asp-route-currentFilter="@ViewData["CurrentFilter"]"
            class="btn btn-default @nextDisabled">
             Next
-        </a>
-
-        <div class="page_buttons">
-            <div class="page_button">1</div>
-            <!--
-        -->
-            <div class="page_button">2</div>
-            <!--
-        -->
-            <div class="page_button">3</div>
-        </div>
+        </a>*@
     </div>
 </body>
