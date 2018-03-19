@@ -34,6 +34,7 @@ function GetBlog(id) {
             if (data.id > 0) {
                 $('#title_input').val(data.title);
                 $('#summary_input').val(data.summary);
+                $('.fr-placeholder').text("");
                 $('#datetime_input').val(data.publishedDateTime);
                 $('div.fr-wrapper > div > p').text(data.content);
                 $('#blogid').val(data.id);
@@ -47,7 +48,8 @@ function CreateBlog() {
     $('#title_input').val("");
     $('#summary_input').val("");
     $('#datetime_input').val("");
-    $('div.fr-wrapper > div > p').text("");
+    var test = $('.fr-element.fr-view');
+    test[0].textContent = "";
     $('#blogid').val(0);
 
     ClearErrors();
@@ -81,7 +83,7 @@ function SaveBlog() {
     }
     if (datetimeinput == "") {
         $('#datetime_input').addClass("error");
-        $('.blog_datetime_container').append("<div class='error_message'>Datetime cannot be empty!</div>");
+        $('.blog_datetime_container').append("<div class='error_message'>Please enter full date and time!</div>");
         good = false;
     }
 
@@ -91,9 +93,9 @@ function SaveBlog() {
         good = false;
     }
 
-    test = $('div.fr-wrapper > div > p');
+    test = $(".fr-element.fr-view");
 
-    if (test[0].innerText == "") {
+    if (test[0].textContent == "") {
         $('#title_input').addClass("error");
         $('.blog_content_container').append("<div class='error_message'>Content cannot be empty!</div>");
         good = false;
@@ -109,7 +111,7 @@ function SaveBlog() {
             data["title"] = titleinput;
             data["summary"] = summaryinput;
             data["publishedDateTime"] = datetimeinput;
-            data["content"] = $('div.fr-wrapper > div > p').text();
+            data["content"] = test[0].textContent;
             data["userID"] = $('#userid').val();
             //data = json.stringify(data);
             $.ajax({
@@ -125,7 +127,9 @@ function SaveBlog() {
                     var row = table.insertRow(rows);
                     row.setAttribute("data-id", data);
                     row.className = "tablerow";
-                    row.addEventListener("click", GetBlog(data));
+                    row.onclick = function () {
+                        GetBlog(data);
+                    };
                     var titlecell = row.insertCell(0);
                     titlecell.innerHTML = titleinput;
                     titlecell.className = "tablecell";
@@ -133,6 +137,7 @@ function SaveBlog() {
                     summarycell.innerHTML = summaryinput;
                     summarycell.className = "tablecell";
                     var datetimecell = row.insertCell(2);
+                    datetimeinput = moment(datetimeinput).format('hh:mm DD MMM YYYY');
                     datetimecell.innerHTML = datetimeinput;
                     datetimecell.className = "tablecell";
 
@@ -144,7 +149,7 @@ function SaveBlog() {
             data["title"] = titleinput;
             data["summary"] = summaryinput;
             data["publishedDateTime"] = datetimeinput;
-            data["content"] = $('div.fr-wrapper > div > p').text();
+            data["content"] = test[0].textContent;
             data["id"] = $('#blogid').val();
             data["userID"] = $('#userid').val();
             $.ajax({

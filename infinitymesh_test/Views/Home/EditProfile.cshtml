@@ -1,6 +1,7 @@
 ﻿@using System.Globalization;
 @using infinitymesh_test.DAL.Models;
 @model infinitymesh_test.DAL.ViewModels.UserProfileVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 @{
@@ -33,7 +34,7 @@
             <div class="navigation_button" onclick="location.href = 'editProfile(@Model.User.Id)';">Edit Info</div>
             <div class="navigation_button">Log out</div>
         </div>
-    </div
+    </div>
     <div class="name_container">@Model.User.Username</div>
     <div class="user_details">
         Name: <input type="text" id="nameInput" placeholder="Insert name..." value="@Model.User.Name" />
@@ -42,12 +43,17 @@
     <div style="text-align: center">
         <div class="above_blog_list">
             <div class="addblog" onclick="CreateBlog();">Create a new Blog</div>
-            <div class="dates">
-                From:  <input type="text" id="datepicker_from" />
-                To:  <input type="text" id="datepicker_to" />
-            </div>
-            <input type="text" id="blogfilter" placeholder="Search..." />
-            <button onclick="FiilterBlogs()">Filter</button>
+            <form asp-action="EditProfile" method="get">
+                <div class="form-actions no-color">
+                    <div class="dates">
+                        <input type="text" id="datepicker_from" placeholder="Dates from..." name="from" />
+                        <input type="text" id="datepicker_to" placeholder="Dates to..." name="to" />
+                    </div>
+                    <input type="text" id="blogfilter" placeholder="Search..." name="SearchString" />
+                    <input type="submit" value="Search Blogs..." class="btn btn-default" /> |
+                    <a asp-action="EditProfile">Back to Full List</a>
+                </div>
+            </form>
         </div>
         <div class="blog_list">
             <table align="center" id="blogtable">
@@ -83,15 +89,6 @@
                     </tr>
                 }
             </table>
-            <div class="page_buttons">
-                <div class="page_button">1</div>
-                <!--
-                -->
-                <div class="page_button">2</div>
-                <!--
-                -->
-                <div class="page_button">3</div>
-            </div>
         </div>
         <div class="editBlog">
             <div class="blog_title_container">
@@ -106,7 +103,9 @@
                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/js/froala_editor.pkgd.min.js"></script>
 
-                <script>$(function () { $('.fr-view').froalaEditor() });</script>
+                <script>
+$(function () { $('.fr-view').froalaEditor() });
+                </script>
             </div>
             <div class="blog_datetime_container">
                 <input id="datetime_input" type="datetime-local" min="@DateTime.Now" value="@DateTime.Now" required />

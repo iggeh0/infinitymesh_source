@@ -11,18 +11,16 @@
         <div class="site_title_container">Blog Manager V1</div>
         <div class="buttons_container">
             <div class="navigation_button" onclick="location.reload()">Home</div>
-            @*<div class="navigation_button" onclick="location.href='@Url.Action("editProfile", "Home", new {id=@Model.User.Id})';">Edit Info</div>*@
-            <div class="navigation_button">Log out</div>
+            <div class="navigation_button" onclick="location.href ='@Url.Action("Index", "Home")'">Log out</div>
         </div>
     </div>
-    @*<div class="username">Welcome, @Model.User.Name</div>*@
     <div class="title2">The User List</div>
     <div class="Search_input_container">
         <form asp-action="HomePage" method="get">
             <div class="form-actions no-color">
                 <p>
-                    Search users: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                    <input type="submit" value="Search" class="btn btn-default" placeholder="Search users..." /> |
+                    <input type="text" name="SearchString" placeholder="Input search here..." value="@ViewData["currentFilter"]" />
+                    <input type="submit" value="Search users..." class="btn btn-default" /> |
                     <a asp-action="HomePage">Back to Full List</a>
                 </p>
             </div>
@@ -70,29 +68,22 @@
 
         </table>
         @{
-        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+        var disabled = "disabled";
         }
-        @for (int i = 0; i < Model.PageIndex; i++)
+        @for (int i = 0; i < Model.TotalPages; i++)
         {
         <a asp-action="HomePage"
            asp-route-page="@(i+1)"
            asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @prevDisabled">
-            @i+1
+           class="btn btn-default
+           @if ((i + 1) == Model.PageIndex)
+           {
+               @disabled;
+           }
+           ">
+            @(i+1)
         </a>
         }
-        @*<a asp-action="HomePage"
-           asp-route-page="@(Model.PageIndex - 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @prevDisabled">
-            Previous
-        </a>
-        <a asp-action="HomePage"
-           asp-route-page="@(Model.PageIndex + 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @nextDisabled">
-            Next
-        </a>*@
     </div>
 </body>

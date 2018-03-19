@@ -120,6 +120,11 @@ td {
     padding: 10px;
 }
 
+.tablerow
+{
+    cursor: pointer;
+}
+
 .table_header {
     background-color: #A9A9A9;
     color: #fff;

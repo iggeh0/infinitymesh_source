@@ -23,15 +23,33 @@ namespace infinitymesh_test.Controllers
             LoginErrorVM Model = new LoginErrorVM();
             return View("login", Model);
         }
-
-        public ActionResult EditProfile(int id)
+        public async Task<ActionResult> EditProfile(int id, DateTime? from, DateTime? to, string searchString)
         {
+            if ( from > to )
+            {
+                DateTime? temp = from;
+                from = to;
+                to = temp;
+            }
             UserProfileVM Model = new UserProfileVM();
-            _context.Users.ToList();
-            _context.Blogs.ToList();
+            await _context.Users.ToListAsync();
+            await _context.Blogs.ToListAsync();
             var service = new BlogService(_context);
             Model.User = service.FindUser(id);
             Model.Blogs = service.FindBlogs(id);
+            if ( from != null )
+            {
+                Model.Blogs.RemoveAll(b => b.PublishedDateTime < from);
+            }
+           
+            if (to != null)
+            {
+                Model.Blogs.RemoveAll(b => b.PublishedDateTime > to);
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Model.Blogs.RemoveAll(b => !(b.Content.Contains(searchString)) && !(b.Title.Contains(searchString)) && !(b.Summary.Contains(searchString)));
+            }
             return View("EditProfile", Model);
         }
 
@@ -66,7 +84,13 @@ namespace infinitymesh_test.Controllers
             }
             foreach (Blogs b in _context.Blogs)
             {
-                Users.Where(x => x.Id == b.UserID).Single().BlogNumber++;
+                foreach (Users u in Users)
+                {
+                    if (u.Id == b.UserID)
+                    {
+                        u.BlogNumber++;
+                    }
+                }
             }
             return View("Home", await PaginatedList<Users>.CreateAsync(Users.AsTracking(), currentpage ?? 1, pageSize));
         }
@@ -116,7 +140,7 @@ namespace infinitymesh_test.Controllers
                                        select w;
                         foreach (Blogs b in _context.Blogs)
                         {
-                            Users.Where(x => x.Id == b.UserID).Single().BlogNumber++;
+                            Users.Where(x => x.Id == b.UserID).SingleOrDefault().BlogNumber++;
                         }
                         int? page = 1;
                         int pageSize = 5;
