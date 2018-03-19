@@ -10,6 +10,7 @@ namespace infinitymesh_test.DAL.ViewModels
         {
             public Users User;
             public List<Blogs> Blogs;
+
             
           public UserProfileVM()
         {

@@ -8,9 +8,11 @@ namespace infinitymesh_test.DAL.ViewModels
     {
     public class UserHomeVM
         {
-            public Users User;
             public List<Users> Users;
-            public List<Blogs> Blogs;
 
+            public UserHomeVM()
+        {
+            Users = new List<Users>();
+        }
         }
     }

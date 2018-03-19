@@ -1,6 +1,12 @@
-﻿@using System;
+﻿@using System.Globalization;
 @using infinitymesh_test.DAL.Models;
 @model infinitymesh_test.DAL.ViewModels.UserProfileVM
+
+
+@{
+
+    CultureInfo a = new CultureInfo("en-US");
+}
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -17,15 +23,17 @@
 <!-- Include Editor style. -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_style.min.css" rel="stylesheet" type="text/css" />
-<body>
+<script src="~/js/moment.js"></script>
+
+<body style="background-color: #d3d3d3;">
     <div class="header">
         <div class="site_title_container">Blog Manager V1</div>
         <div class="buttons_container">
-            <div class="navigation_button">Home</div>
+            <div class="navigation_button" onclick="location.href='@Url.Action("HomePage", "Home", new { id = @Model.User.Id})';">Home</div>
             <div class="navigation_button" onclick="location.href = 'editProfile(@Model.User.Id)';">Edit Info</div>
             <div class="navigation_button">Log out</div>
         </div>
-    </div>
+    </div
     <div class="name_container">@Model.User.Username</div>
     <div class="user_details">
         Name: <input type="text" id="nameInput" placeholder="Insert name..." value="@Model.User.Name" />
@@ -42,7 +50,7 @@
             <button onclick="FiilterBlogs()">Filter</button>
         </div>
         <div class="blog_list">
-            <table align="center">
+            <table align="center" id="blogtable">
                 <tr class="tablerow table_header">
                     <td class="tablecell">
                         Title
@@ -62,7 +70,7 @@
                 }
                 @foreach (Blogs blog in Model.Blogs)
                 {
-                    <tr class="tablerow" onclick="editBlog(1)">
+                    <tr data-id="@blog.Id" class="tablerow" onclick="GetBlog(@blog.Id)">
                         <td class="tablecell">
                             @blog.Title
                         </td>
@@ -70,7 +78,7 @@
                             @blog.Summary
                         </td>
                         <td class="tablecell">
-                            @blog.PublishedDateTime
+                            @blog.PublishedDateTime.ToString("hh:mm dd MMM yyyy", a)
                         </td>
                     </tr>
                 }
@@ -101,12 +109,14 @@
                 <script>$(function () { $('.fr-view').froalaEditor() });</script>
             </div>
             <div class="blog_datetime_container">
-                <input id="datetime_input" type="datetime-local" min="@DateTime.Now" />
+                <input id="datetime_input" type="datetime-local" min="@DateTime.Now" value="@DateTime.Now" required />
             </div>
             <div class="editblog_buttons">
                 <div class="cancel_button" onclick="CancelBlog();">Cancel</div>
                 <div class="save_button" onclick="SaveBlog();">Save</div>
             </div>
+            <input type="hidden" id="blogid" value="0" />
+            <input type="hidden" id="userid" value="@Model.User.Id" />
         </div>
     </div>
 </body>

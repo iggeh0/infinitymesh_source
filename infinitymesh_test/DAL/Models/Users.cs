@@ -13,9 +13,10 @@ namespace infinitymesh_test.DAL.Models
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public int BlogNumber { get; set; }
         public Users()
         {
-
+            this.BlogNumber = 0;
         }
 
         public Users(string Name, int Age, string Username, string Email, string Password)
@@ -25,7 +26,7 @@ namespace infinitymesh_test.DAL.Models
             this.Email = Email;
             this.Password = Password;
             this.Username = Username;
-
+            this.BlogNumber = 0;
         }
 
         public Users(Users u)
@@ -36,6 +37,7 @@ namespace infinitymesh_test.DAL.Models
             this.Email = u.Email;
             this.Username = u.Username;
             this.Password = u.Password;
+            this.BlogNumber = u.BlogNumber;
         }
     }
 }

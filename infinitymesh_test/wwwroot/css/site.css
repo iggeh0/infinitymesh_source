@@ -14,6 +14,16 @@
     margin-bottom: 50px;
 }
 
+.error
+{
+    border:1px solid #ff0000;
+}
+
+.error_message
+{
+    color:#ff0000;
+}
+
 .input_form {
     text-align: center;
 }
@@ -178,9 +188,10 @@ td {
 }
 
 .editBlog {
+    display:none;
     position: absolute;
     left: 25%;
-    top: 50%;
+    top: 25%;
     padding: 20px;
     border: 1px solid black;
     background-color: #fff;
@@ -194,6 +205,11 @@ td {
 
 .editblog_buttons {
     text-align: right;
+}
+
+.blog_content_container
+{
+    max-width:60vw;
 }
 
     .editblog_buttons .save_button, .editblog_buttons .cancel_button {

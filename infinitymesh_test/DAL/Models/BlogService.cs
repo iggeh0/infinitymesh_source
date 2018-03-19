@@ -44,6 +44,13 @@ namespace infinitymesh_test.DAL.Models
                 .ToList();
         }
 
+        public Blogs GetBlog(int id)
+        {
+            List<Blogs> test = _context.Blogs.Where(t => t.Id == id).ToList();
+            Blogs q = test.First();
+            return _context.Blogs.Where(b => b.Id == id).First();
+        }
+
         public void AddUser(Users u)
         {
             Users newUser = new Users(u);
