@@ -121,58 +121,72 @@ function SaveBlog() {
                 //dataType: "json",
                 data: { data: data },
                 success: function (data) {
-                    var table = $('#blogtable');
-                    table = table[0];
-                    var rows = document.getElementsByClassName('tablerow').length;
-                    var row = table.insertRow(rows);
-                    row.setAttribute("data-id", data);
-                    row.className = "tablerow";
-                    row.onclick = function () {
-                        GetBlog(data);
-                    };
-                    var titlecell = row.insertCell(0);
-                    titlecell.innerHTML = titleinput;
-                    titlecell.className = "tablecell";
-                    var summarycell = row.insertCell(1);
-                    summarycell.innerHTML = summaryinput;
-                    summarycell.className = "tablecell";
-                    var datetimecell = row.insertCell(2);
-                    datetimeinput = moment(datetimeinput).format('hh:mm DD MMM YYYY');
-                    datetimecell.innerHTML = datetimeinput;
-                    datetimecell.className = "tablecell";
+                    if (data > 0) {
 
+                        var table = $('#blogtable');
+                        table = table[0];
+                        var rows = document.getElementsByClassName('tablerow').length;
+                        var row = table.insertRow(rows);
+                        $('.noblogs').remove();
+                        row.setAttribute("data-id", data);
+                        row.className = "tablerow";
+                        row.onclick = function () {
+                            GetBlog(data);
+                        };
+                        var titlecell = row.insertCell(0);
+                        titlecell.innerHTML = titleinput;
+                        titlecell.className = "tablecell";
+                        var summarycell = row.insertCell(1);
+                        summarycell.innerHTML = summaryinput;
+                        summarycell.className = "tablecell";
+                        var datetimecell = row.insertCell(2);
+                        datetimeinput = moment(datetimeinput).format('hh:mm DD MMM YYYY');
+                        datetimecell.innerHTML = datetimeinput;
+                        datetimecell.className = "tablecell";
+
+                    }
+                    else {
+                        alert("Failed to create blog, invalid values were sent");
+                    }
                     $('.editBlog').hide();
                 }
             });
         }
         else if ($('#blogid').val() > 0) {
-            data["title"] = titleinput;
-            data["summary"] = summaryinput;
-            data["publishedDateTime"] = datetimeinput;
-            data["content"] = test[0].textContent;
-            data["id"] = $('#blogid').val();
-            data["userID"] = $('#userid').val();
-            $.ajax({
-                url: "/home/UpdateBlog",
-                type: 'post',
+            if (titleinput.length < 64 && titleinput != ""
+                && summaryinput.length < 350 && summaryinput != ""
+                && test[0].textContent.length < 350 && test[0].textContent != "") {
+                data["title"] = titleinput;
+                data["summary"] = summaryinput;
+                data["publishedDateTime"] = datetimeinput;
+                data["content"] = test[0].textContent;
+                data["id"] = $('#blogid').val();
+                data["userID"] = $('#userid').val();
+                $.ajax({
+                    url: "/home/UpdateBlog",
+                    type: 'post',
 
-                data: { data: data },
-                success: function () {
-                    var target = $('tr[data-id="' + $('#blogid').val() + '"]');   
-                    target = target[0];
-                    target.innerHTML = "<tr data-id='" + $('#blogid').val() + "' class='tablerow' onclick='GetBlog(" + $('#blogid').val() + ")'>" +
-                        '<td class="tablecell">' +
-                        titleinput +
-                        ' </td > ' +
-                        '<td class="tablecell">' +
-                        summaryinput +
-                        '</td>' +
-                        '<td class="tablecell">' +
-                        moment(datetimeinput).format('hh:mm DD MMM YYYY');
+                    data: { data: data },
+                    success: function () {
+                        var target = $('tr[data-id="' + $('#blogid').val() + '"]');
+                        target = target[0];
+                        target.innerHTML = "<tr data-id='" + $('#blogid').val() + "' class='tablerow' onclick='GetBlog(" + $('#blogid').val() + ")'>" +
+                            '<td class="tablecell">' +
+                            titleinput +
+                            ' </td > ' +
+                            '<td class="tablecell">' +
+                            summaryinput +
+                            '</td>' +
+                            '<td class="tablecell">' +
+                            moment(datetimeinput).format('hh:mm DD MMM YYYY');
                         '</td>';
-                    $('.editBlog').hide();
-                }
-            });
+                        $('.editBlog').hide();
+                    }
+                });
+            }
+            else {
+                alert("Failed to update blog, invalid values were sent");
+            }
         }
     }
 }

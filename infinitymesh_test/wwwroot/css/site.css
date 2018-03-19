@@ -28,14 +28,14 @@
     text-align: center;
 }
 
-    .input_form input {
-        padding: 20px;
-        width: 51%;
-        margin-bottom: 20px;
-        background-color: #d3d3d3;
-        border: none;
-        border-bottom: 1px solid #000;
-    }
+.input_form input {
+    padding: 20px;
+    width: 51%;
+    margin-bottom: 20px;
+    background-color: #d3d3d3;
+    border: none;
+    border-bottom: 1px solid #000;
+}
 
 .sign_in_button {
     display: inline-block;
@@ -73,10 +73,10 @@
     cursor: pointer;
 }
 
-    .navigation_button:hover {
-        background-color: #fff;
-        color: #000;
-    }
+.navigation_button:hover {
+    background-color: #fff;
+    color: #000;
+}
 
 .username {
     padding: 50px;
@@ -92,12 +92,12 @@
     text-align: center;
 }
 
-    .Search_input_container input {
-        height: 30px;
-        width: 180px;
-        padding-left: 15px;
-        border-radius: 10px;
-    }
+.Search_input_container input {
+    height: 30px;
+    width: 180px;
+    padding-left: 15px;
+    border-radius: 10px;
+}
 
 .users_list {
     text-align: center;
@@ -155,32 +155,23 @@ td {
 
 /* USER PROFILE PAGE START */
 
-.name_container {
-    padding: 50px;
-    font-size: 20px;
-}
-
 .user_details {
     margin-left: 50px;
     margin-bottom: 20px;
     padding: 10px;
+    border-bottom:1px solid #000;
 }
 
-    .user_details input {
-        font-size: 18px;
-        border: none;
-        background-color: #d3d3d3;
-        border-bottom: 1px solid black;
-    }
-
-.user_age {
-    display: inline-block;
-    margin-left: 15px;
+.user_details div {
+    display:inline-block;
+    font-size: 18px;
+    border: none;
+    background-color: #d3d3d3;
 }
 
 .addblog {
     display: inline-block;
-    padding: 15px;
+    padding: 5px;
     background-color: #000;
     color: #fff;
     border-radius: 10px;
@@ -190,6 +181,11 @@ td {
 .dates {
     display: inline-block;
     margin-left: 20px;
+}
+
+.form-actions.no-color *
+{
+    vertical-align:middle;
 }
 
 .editBlog {
@@ -217,20 +213,21 @@ td {
     max-width:60vw;
 }
 
-    .editblog_buttons .save_button, .editblog_buttons .cancel_button {
-        display: inline-block;
-        width: 150px;
-        border: 1px solid black;
-        text-align: center;
-        cursor: pointer;
-    }
+.editblog_buttons .save_button, .editblog_buttons .cancel_button {
+    display: inline-block;
+    width: 150px;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+}
 
-    .editblog_buttons .save_button {
-        background-color: #add8e6;
-        color: #fff
-    }
+.editblog_buttons .save_button {
+    background-color: #add8e6;
+    color: #fff
+}
 
-    .editblog_buttons .cancel_button {
-        background-color: #8b0000;
-        color: #fff
-    }
+.editblog_buttons .cancel_button {
+    background-color: #8b0000;
+    color: #fff
+}
+

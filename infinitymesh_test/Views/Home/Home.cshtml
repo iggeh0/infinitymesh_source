@@ -6,7 +6,7 @@
 
 
 <script src="~/js/HomePage.js"></script>
-<body>
+<body style="background-color: #d3d3d3;">
     <div class="header">
         <div class="site_title_container">Blog Manager V1</div>
         <div class="buttons_container">
@@ -46,44 +46,47 @@
                 </td>
             </tr>
             @foreach (Users user in Model)
-        {
-            <tr class="tablerow">
-                <td class="tablecell">
-                    @user.Name
-                </td>
-                <td class="tablecell">
-                    @user.Age
-                </td>
-                <td class="tablecell">
-                    @user.Email
-                </td>
-                <td class="tablecell">
-                    @user.BlogNumber
-                </td>
-                <td class="tablecell">
-                    <a href='@Url.Action("editProfile", "Home", new {id=@user.Id})' ;">View</a>
-                </td>
-            </tr>
-    }
+            {
+                <tr class="tablerow">
+                    <td class="tablecell">
+                        @user.Name
+                    </td>
+                    <td class="tablecell">
+                        @user.Age
+                    </td>
+                    <td class="tablecell">
+                        @user.Email
+                    </td>
+                    <td class="tablecell">
+                        @user.BlogNumber
+                    </td>
+                    <td class="tablecell">
+                        <a href='@Url.Action("editProfile", "Home", new {id=@user.Id})' ;">View</a>
+                    </td>
+                </tr>
+            }
 
         </table>
         @{
 
-        var disabled = "disabled";
+            var disabled = "disabled";
         }
-        @for (int i = 0; i < Model.TotalPages; i++)
-        {
-        <a asp-action="HomePage"
-           asp-route-page="@(i+1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default
-           @if ((i + 1) == Model.PageIndex)
-           {
-               @disabled;
-           }
-           ">
-            @(i+1)
-        </a>
-        }
+
+        <div class="page_buttons">
+            @for (int i = 0; i < Model.TotalPages; i++)
+            {
+                <a asp-action="HomePage"
+                    asp-route-page="@(i+1)"
+                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                    class="btn btn-default
+                    @if ((i + 1) == Model.PageIndex)
+                    {
+                        @disabled;
+                    }
+                    ">
+                    @(i + 1)
+                </a>
+            }
+        </div>
     </div>
 </body>

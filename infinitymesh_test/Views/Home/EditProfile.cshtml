@@ -35,23 +35,25 @@
             <div class="navigation_button">Log out</div>
         </div>
     </div>
-    <div class="name_container">@Model.User.Username</div>
+
     <div class="user_details">
-        Name: <input type="text" id="nameInput" placeholder="Insert name..." value="@Model.User.Name" />
+        <div class="first_name_container"> Name: @Model.User.Name</div>
+        <br />
         <div class="user_age">Age: @Model.User.Age</div>
+        <br />
+        <div class="username_container">Username: @Model.User.Username</div>
     </div>
     <div style="text-align: center">
         <div class="above_blog_list">
-            <div class="addblog" onclick="CreateBlog();">Create a new Blog</div>
             <form asp-action="EditProfile" method="get">
                 <div class="form-actions no-color">
+                    <div class="addblog" onclick="CreateBlog();">Create a new Blog</div>
                     <div class="dates">
-                        <input type="text" id="datepicker_from" placeholder="Dates from..." name="from" />
-                        <input type="text" id="datepicker_to" placeholder="Dates to..." name="to" />
+                        <input type="text" id="datepicker_from" style="width: 80px" placeholder="Dates from..." name="from" />
+                        <input type="text" id="datepicker_to" style="width: 80px" placeholder="Dates to..." name="to" />
                     </div>
                     <input type="text" id="blogfilter" placeholder="Search..." name="SearchString" />
-                    <input type="submit" value="Search Blogs..." class="btn btn-default" /> |
-                    <a asp-action="EditProfile">Back to Full List</a>
+                    <input type="submit" value="Search Blogs..." class="btn btn-default" />
                 </div>
             </form>
         </div>
@@ -69,27 +71,29 @@
                     </td>
                 </tr>
                 @if (Model.Blogs.Count == 0)
-                {
-                    <tr class="tablerow" style="text-align:center">
-                        <td> No blogs created yet.</td>
-                    </tr>
-                }
+            {
+                <tr class="tablerow noblogs" style="text-align:center">
+                    <td> No blogs created yet.</td>
+                </tr>
+        }
                 @foreach (Blogs blog in Model.Blogs)
-                {
-                    <tr data-id="@blog.Id" class="tablerow" onclick="GetBlog(@blog.Id)">
-                        <td class="tablecell">
-                            @blog.Title
-                        </td>
-                        <td class="tablecell">
-                            @blog.Summary
-                        </td>
-                        <td class="tablecell">
-                            @blog.PublishedDateTime.ToString("hh:mm dd MMM yyyy", a)
-                        </td>
-                    </tr>
-                }
+            {
+                <tr data-id="@blog.Id" class="tablerow" onclick="GetBlog(@blog.Id)">
+                    <td class="tablecell">
+                        @blog.Title
+                    </td>
+                    <td class="tablecell">
+                        @blog.Summary
+                    </td>
+                    <td class="tablecell">
+                        @blog.PublishedDateTime.ToString("hh:mm dd MMM yyyy", a)
+                    </td>
+                </tr>
+        }
             </table>
         </div>
+        <br />
+        <a asp-action="EditProfile">Back to Full List</a>
         <div class="editBlog">
             <div class="blog_title_container">
                 <textarea id="title_input" maxlength="64" placeholder="Title"></textarea>
@@ -104,11 +108,11 @@
                 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/js/froala_editor.pkgd.min.js"></script>
 
                 <script>
-$(function () { $('.fr-view').froalaEditor() });
+                    $(function () { $('.fr-view').froalaEditor() });
                 </script>
             </div>
             <div class="blog_datetime_container">
-                <input id="datetime_input" type="datetime-local" min="@DateTime.Now" value="@DateTime.Now" required />
+                <input id="datetime_input" type="datetime-local" required />
             </div>
             <div class="editblog_buttons">
                 <div class="cancel_button" onclick="CancelBlog();">Cancel</div>

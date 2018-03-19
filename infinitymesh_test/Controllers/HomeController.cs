@@ -50,6 +50,7 @@ namespace infinitymesh_test.Controllers
             {
                 Model.Blogs.RemoveAll(b => !(b.Content.Contains(searchString)) && !(b.Title.Contains(searchString)) && !(b.Summary.Contains(searchString)));
             }
+            Model.Blogs.Sort((x, y) => DateTime.Compare(x.PublishedDateTime, y.PublishedDateTime));
             return View("EditProfile", Model);
         }
 
@@ -82,6 +83,7 @@ namespace infinitymesh_test.Controllers
                 Users = Users.Where(s => s.Name.Contains(searchString)
                                        || s.Email.Contains(searchString));
             }
+            Users = Users.OrderBy(Q => Q.Name);
             foreach (Blogs b in _context.Blogs)
             {
                 foreach (Users u in Users)
@@ -105,6 +107,10 @@ namespace infinitymesh_test.Controllers
 
         public int CreateBlog(Blogs data)
         {
+            if ( data.Title.Length > 64 || data.Title == null || data.Summary.Length > 350 || data.Summary == null || data.Content.Length > 3500 || data.Content == null )
+            {
+                return 0;
+            }
             _context.Blogs.ToList();
             _context.Blogs.Add(data);
             _context.SaveChanges();
@@ -144,7 +150,8 @@ namespace infinitymesh_test.Controllers
                         }
                         int? page = 1;
                         int pageSize = 5;
-                        
+
+                        Users = Users.OrderBy(Q => Q.Name);
 
                         return View("Home", await PaginatedList<Users>.CreateAsync(Users.AsTracking(), page ?? 1, pageSize));
                     }
